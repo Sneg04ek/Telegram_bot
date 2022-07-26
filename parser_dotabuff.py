@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 
 from bs4 import BeautifulSoup
-# from fake_useragent import UserAgent
+from fake_useragent import UserAgent
 
 
 def heroes():
@@ -11,13 +11,13 @@ def heroes():
     (ключ - имя героя) и ссылок на их дотабафы (значение - ссылка).
     '''
     url = 'https://www.dotabuff.com/heroes'
-    # headers = {'User-Agent': UserAgent().chrome}
+    headers = {'User-Agent': UserAgent().chrome}
 
     first_hero = 'Abaddon'  # Первый герой по списку
     last_hero = 'Zeus'  # Последний герой по списку
 
     response = requests.get(url,
-                            # headers=headers
+                            headers=headers
                             )
     heroes = BeautifulSoup(response.text, 'html.parser')
     heroes = heroes.find_all('a')
@@ -47,10 +47,10 @@ def get_info_about_hero(name_hero):
     heroes_dict = heroes()
     url = heroes_dict[name_hero]
 
-    # headers = {'User-Agent': UserAgent().chrome}
+    headers = {'User-Agent': UserAgent().chrome}
 
     response = requests.get(url,
-                            # headers=headers
+                            headers=headers
                             )
     hero = BeautifulSoup(response.text, 'html.parser')
 
